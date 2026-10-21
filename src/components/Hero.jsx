@@ -14,28 +14,31 @@ import {
 
 const slides = [
   {
-    image: "/images/herob1.webp",
+    image: "/images/herodr4.webp",
     title: "Women's Health",
     subtitle: "Care with understanding",
     icon: Heart,
     iconColor: "text-[#F0008B]",
     iconBg: "bg-pink-100",
+    alt: "Women's healthcare consultation",
   },
   {
-    image: "/images/herob2.webp",
+    image: "/images/herodr2.webp",
     title: "Pregnancy Care",
     subtitle: "Support through every stage",
     icon: Baby,
     iconColor: "text-[#0875C9]",
     iconBg: "bg-blue-100",
+    alt: "Pregnancy healthcare and support",
   },
   {
-    image: "/images/herob3.webp",
+    image: "/images/herodr3.webp",
     title: "Women's Wellbeing",
     subtitle: "Guidance for your health journey",
     icon: Flower2,
     iconColor: "text-[#F0008B]",
     iconBg: "bg-pink-100",
+    alt: "Doctor supporting women's wellbeing",
   },
 ];
 
@@ -85,7 +88,10 @@ export default function Hero() {
         {/* Left content */}
         <div className="relative z-10">
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-pink-200 bg-white/90 px-4 py-2 text-xs font-semibold text-[#0875C9] sm:text-sm">
-            <Heart size={16} className="animate-gentle-shake text-[#F0008B]" />
+            <Heart
+              size={16}
+              className="animate-gentle-shake text-[#F0008B]"
+            />
             Compassionate Women's Healthcare
           </div>
 
@@ -158,35 +164,38 @@ export default function Hero() {
             <Sparkles size={22} />
           </div>
 
-          {/* Image frame */}
+          {/* Optimized image frame */}
           <div className="relative overflow-hidden rounded-[1.5rem] border-[6px] border-white bg-white shadow-2xl shadow-blue-100 sm:rounded-[2rem] sm:border-[8px]">
+            {/* Keep image frame height stable */}
+            <div className="aspect-[4/5] w-full bg-pink-50 sm:aspect-[4/4.7]" />
+
             {slides.map((slide, index) => (
               <img
                 key={slide.image}
                 src={slide.image}
-                alt={[
-                  "Women's healthcare consultation",
-                  "Pregnancy healthcare and support",
-                  "Doctor supporting women's wellbeing",
-                ][index]}
+                alt={slide.alt}
+                loading={index === 0 ? "eager" : "lazy"}
+                fetchPriority={index === 0 ? "high" : "auto"}
+                decoding="async"
+                width="520"
+                height="650"
                 className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
-                  index === activeSlide ? "opacity-100" : "opacity-0"
+                  index === activeSlide
+                    ? "z-[1] opacity-100"
+                    : "z-0 opacity-0"
                 }`}
-                style={{
-                  position: "absolute",
-                  inset: 0,
+                onLoad={(event) => {
+                  event.currentTarget.dataset.loaded = "true";
                 }}
               />
             ))}
 
-            {/* Maintain image frame height */}
-            <div className="aspect-[4/5] w-full sm:aspect-[4/4.7]" />
-
             {/* Bottom image overlay */}
-            <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-slate-900/75 via-slate-900/20 to-transparent px-5 pb-16 pt-24 sm:px-7 sm:pb-20">
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-slate-900/75 via-slate-900/20 to-transparent px-5 pb-16 pt-24 sm:px-7 sm:pb-20">
               <p className="text-xl font-bold text-white sm:text-2xl">
                 Dr. Bharathi V
               </p>
+
               <p className="mt-1 text-xs text-white/90 sm:text-sm">
                 Obstetrician &amp; Gynaecologist
               </p>
@@ -230,6 +239,7 @@ export default function Hero() {
                 <p className="text-sm font-bold text-slate-800 sm:text-base">
                   {currentSlide.title}
                 </p>
+
                 <p className="mt-1 text-[11px] leading-4 text-slate-500 sm:text-xs">
                   {currentSlide.subtitle}
                 </p>
