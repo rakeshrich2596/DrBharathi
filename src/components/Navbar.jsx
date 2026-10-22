@@ -27,7 +27,7 @@ export default function Navbar() {
           className="flex shrink-0 items-center"
         >
           <img
-            src="/images/logo.png"
+            src="/images/dr_logo3.png"
             alt="Bharati Fertility and Women Center"
             className="h-auto w-[135px] object-contain sm:w-[165px] lg:w-[175px]"
           />

@@ -71,7 +71,7 @@ export default function Footer() {
           <div className="lg:col-span-4">
             <a href="#home" className="inline-flex items-center">
               <img
-                src="/images/logo.png"
+                src="/images/dr_logo3.png"
                 alt="Bharati Fertility & Women Center"
                 className="h-24 w-auto max-w-[350px] object-contain object-left"
               />
